@@ -70,7 +70,7 @@ def sds_headers() -> dict[str, str]:
 
 def send_data(json_data):
     headers = sds_headers()
-    r = requests.post(dist_serv + dist_dest, data=json_data, headers=headers)
+    return requests.post(dist_serv + dist_dest, json=json_data, headers=headers)
 
 app = Flask(__name__)
 
@@ -83,8 +83,9 @@ def verify_password(username, password):
         return username
 
 def recieve_packet(packet):
-    send_data(packet.get_json())
-    return Response("", status=201)
+    r = send_data(packet.get_json())
+    print(r.text)
+    return r.text
 
 @app.route("/", methods=['POST'])
 @auth.login_required
