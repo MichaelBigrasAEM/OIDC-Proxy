@@ -86,6 +86,8 @@ def verify_password(username, password):
 
 def recieve_packet(packet):
     data = packet.get_json()
+    if diagnostics == "y":
+        print(data)
     data["value"] = data["value"][0]
     data["asset"] = data["asset"][0]
     if diagnostics == "y":
