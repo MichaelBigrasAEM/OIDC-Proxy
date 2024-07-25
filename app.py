@@ -34,6 +34,8 @@ dist_dest = os.environ["dist_dest"]
 client_id = os.environ["client_id"]
 client_secret = os.environ["client_secret"]
 
+diagnostics = os.environ["diagnostics"]
+
 token = ''
 token_expiration = 0
 
@@ -86,7 +88,11 @@ def recieve_packet(packet):
     data = packet.get_json()
     data["value"] = data["value"][0]
     data["asset"] = data["asset"][0]
+    if diagnostics == "y":
+        print(data)
     r = send_data(data)
+    if diagnostics == "y":
+        print(r)
     return r.text
 
 @app.route("/", methods=['POST'])
