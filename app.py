@@ -83,8 +83,10 @@ def verify_password(username, password):
         return username
 
 def recieve_packet(packet):
-    r = send_data(packet.get_json())
-    print(r.text)
+    data = packet.get_json()
+    data["value"] = data["value"][0]
+    data["asset"] = data["asset"][0]
+    r = send_data(data)
     return r.text
 
 @app.route("/", methods=['POST'])
